@@ -1,0 +1,13 @@
+services:
+  devbox:
+    image: devbox
+    volumes:
+      - devbox-data:/data
+      - .:/app
+    working_dir: /data
+    tty: true
+    stdin_open: true
+
+volumes:
+  devbox-data:
+    name: devbox-data

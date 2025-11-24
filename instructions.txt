@@ -1,0 +1,20 @@
+# to build
+docker build -t devbox .
+
+# to recreate
+docker compose up -d --force-recreate
+
+# to run and access
+docker compose exec devbox bash
+
+# docker compose up -d
+
+# docker compose exec -w /data devbox bash
+
+# temporary container will delete on exit
+# docker run -it --rm devbox bash
+
+
+# docker compose exec devbox bash
+# temporary container
+# docker compose run devbox
