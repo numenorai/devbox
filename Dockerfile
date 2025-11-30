@@ -183,5 +183,28 @@ RUN echo 'alias l="ls --color"' >> /root/.bashrc && \
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 
+# ---------- GNU Prolog (gprolog) from source ----------
+ARG GPROLOG_VERSION=1.5.0
+
+RUN set -eux; \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        wget \
+        m4 \
+        texinfo && \
+    cd /tmp && \
+    wget "https://downloads.sourceforge.net/project/gprolog/${GPROLOG_VERSION}/gprolog-${GPROLOG_VERSION}.tar.gz" && \
+    tar -xzf "gprolog-${GPROLOG_VERSION}.tar.gz" && \
+    cd "gprolog-${GPROLOG_VERSION}/src" && \
+    ./configure && \
+    make -j"$(nproc)" && \
+    make install && \
+    cd / && \
+    rm -rf "/tmp/gprolog-${GPROLOG_VERSION}" "/tmp/gprolog-${GPROLOG_VERSION}.tar.gz" && \
+    apt-get purge -y wget m4 texinfo && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+
 # Default command when a container is run
 CMD ["bash"]
