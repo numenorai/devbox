@@ -145,6 +145,18 @@ RUN mkdir -p /root/.config/helix && \
 theme = "ao"
 EOF
 
+# Add Prolog language support for Helix
+RUN mkdir -p /root/.config/helix && \
+    cat << 'EOF' > /root/.config/helix/languages.toml
+[[language]]
+name = "prolog"
+scope = "source.prolog"
+roots = []
+file-types = ["pl", "pro"]
+comment-token = "%"
+indent = { tab-width = 4, unit = "    " }
+EOF
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bc qalc && \
     rm -rf /var/lib/apt/lists/*
