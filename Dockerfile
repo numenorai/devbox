@@ -190,7 +190,7 @@ RUN echo 'alias l="ls --color"' >> /root/.bashrc && \
     echo 'alias gl="git pull"' >> /root/.bashrc && \
     echo 'alias gs="git status"' >> /root/.bashrc && \
     echo 'alias gp="git push"' >> /root/.bashrc && \
-    echo 'alias gc="git commit -c"' >> /root/.bashrc && \
+    echo 'alias gc="git commit -m"' >> /root/.bashrc && \
     echo 'alias ga="git add"' >> /root/.bashrc
 
 ENV PATH="/root/.cargo/bin:${PATH}"
@@ -217,6 +217,17 @@ RUN set -eux; \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+# All persistent state lives under /data (volume)
+ENV DEVBOX_DATA=/data \
+    XDG_CONFIG_HOME=/data/config \
+    XDG_CACHE_HOME=/data/cache \
+    XDG_DATA_HOME=/data/share \
+    CARGO_HOME=/data/cargo \
+    GH_CONFIG_DIR=/data/gh \
+    NPM_CONFIG_PREFIX=/data/npm-global \
+    PLAYWRIGHT_BROWSERS_PATH=/data/playwright-browsers
+
+ENV PATH="/root/.cargo/bin:/data/npm-global/bin:${PATH}"
 
 # Default command when a container is run
 CMD ["bash"]
