@@ -219,13 +219,11 @@ RUN set -eux; \
 
 # All persistent state lives under /data (volume)
 ENV DEVBOX_DATA=/data \
-    XDG_CONFIG_HOME=/data/config \
-    XDG_CACHE_HOME=/data/cache \
-    XDG_DATA_HOME=/data/share \
     CARGO_HOME=/data/cargo \
     GH_CONFIG_DIR=/data/gh \
     NPM_CONFIG_PREFIX=/data/npm-global \
     PLAYWRIGHT_BROWSERS_PATH=/data/playwright-browsers
+# (no XDG_CONFIG_HOME / XDG_CACHE_HOME / XDG_DATA_HOME)
 
 ENV PATH="/root/.cargo/bin:/data/npm-global/bin:${PATH}"
 
